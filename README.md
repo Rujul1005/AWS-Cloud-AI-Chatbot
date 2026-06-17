@@ -1,4 +1,4 @@
-# ☁️ Cloud AI Chatbot – Serverless Chatbot Using AWS
+# 🌐 Cloud AI Chatbot – Serverless Chatbot Using AWS
 
 ## 🚀 Project Overview  
 This project demonstrates the development and deployment of a serverless AI-powered chatbot using AWS cloud services.
@@ -64,17 +64,11 @@ The chatbot frontend sends user messages to API Gateway, which triggers a Lambda
 ## ⚙️ Deployment Steps  
 
 1. Create a DynamoDB table to store chatbot questions and answers.
-
 2. Create an AWS Lambda function and connect it with DynamoDB.
-
 3. Configure API Gateway and create a POST endpoint for chatbot communication.
-
 4. Enable CORS to allow communication between the S3 hosted frontend and API Gateway.
-
 5. Develop the chatbot frontend using HTML, CSS, and JavaScript.
-
 6. Upload frontend files to Amazon S3 and enable static website hosting.
-
 7. Connect the frontend with the API Gateway endpoint and test the complete application.
 
 ---
