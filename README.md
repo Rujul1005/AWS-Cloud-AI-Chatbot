@@ -43,9 +43,8 @@ The chatbot frontend sends user messages to API Gateway, which triggers a Lambda
 ## 📸 Screenshots  
 
 <img width="1918" height="990" alt="Screenshot 2026-06-17 182728" src="https://github.com/user-attachments/assets/9b0f7501-e986-4b6a-81ea-8ae2a141f12b" />
-<img width="1917" height="986" alt="Screenshot 2026-06-17 182748" src="https://github.com/user-attachments/assets/c173c44c-3d61-4e62-b91f-9003c0df3883" />
 <img width="1918" height="985" alt="Screenshot 2026-06-17 182805" src="https://github.com/user-attachments/assets/83693133-b759-4dc5-8be2-3021413dd4f4" />
-<img width="1918" height="981" alt="Screenshot 2026-06-17 182821" src="https://github.com/user-attachments/assets/c2feb8eb-2463-4024-8a67-b34dff7d030b" />
+<img width="1917" height="986" alt="Screenshot 2026-06-17 182748" src="https://github.com/user-attachments/assets/c173c44c-3d61-4e62-b91f-9003c0df3883" />
 <img width="1918" height="1093" alt="Screenshot 2026-06-17 182443" src="https://github.com/user-attachments/assets/532935c5-d60d-4e7c-a893-93a632ccb3ba" />
 
 ---
