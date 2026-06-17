@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud Assistant AI</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#0F172A;
+    color:white;
+    overflow:hidden;
+}
+
+/* Navbar */
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:20px 10%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(15,23,42,0.7);
+    backdrop-filter:blur(10px);
+}
+
+.logo{
+    font-size:26px;
+    font-weight:bold;
+    color:#38BDF8;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+}
+
+/* Hero */
+.hero{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:radial-gradient(circle at top,#1E3A8A,#0F172A 60%);
+    padding:20px;
+}
+
+.hero h1{
+    font-size:60px;
+}
+
+.hero span{
+    color:#38BDF8;
+}
+
+.hero p{
+    margin-top:15px;
+    max-width:700px;
+    color:#CBD5E1;
+    font-size:20px;
+}
+
+.btn{
+    margin-top:30px;
+    padding:15px 30px;
+    border-radius:30px;
+    border:none;
+    cursor:pointer;
+    background:#38BDF8;
+    font-weight:bold;
+}
+
+/* Chat Button */
+.chat-button{
+    position:fixed;
+    right:30px;
+    bottom:30px;
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:#38BDF8;
+    color:black;
+    font-size:30px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 0 25px #38BDF8;
+}
+
+/* Chat Box */
+.chatbox{
+    position:fixed;
+    right:30px;
+    bottom:110px;
+    width:350px;
+    height:450px;
+    background:#1E293B;
+    border-radius:20px;
+    display:none;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+.chat-header{
+    background:#38BDF8;
+    color:black;
+    padding:15px;
+    font-weight:bold;
+}
+
+.chat-body{
+    flex:1;
+    padding:15px;
+    overflow-y:auto;
+}
+
+.message{
+    margin:10px 0;
+    padding:10px 15px;
+    border-radius:15px;
+}
+
+.bot{
+    background:#334155;
+}
+
+.user{
+    background:#38BDF8;
+    color:black;
+    text-align:right;
+}
+
+.chat-input{
+    display:flex;
+}
+
+.chat-input input{
+    flex:1;
+    padding:15px;
+    border:none;
+    outline:none;
+}
+
+.chat-input button{
+    width:80px;
+    border:none;
+    background:#38BDF8;
+    cursor:pointer;
+}
+
+@media(max-width:700px){
+    .hero h1{
+        font-size:40px;
+    }
+
+    .chatbox{
+        width:90%;
+        right:5%;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">☁ Cloud AI</div>
+
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#" onclick="toggleChat()">Chat</a></li>
+    </ul>
+</nav>
+
+
+<section class="hero">
+
+<h1>
+Your Personal <span>Cloud AI</span> Assistant
+</h1>
+
+<p>
+Master AWS, build serverless applications, and get instant guidance through an intelligent AI chatbot.
+</p>
+
+<button class="btn" onclick="toggleChat()">
+Talk with AI
+</button>
+
+</section>
+
+
+<div class="chat-button" onclick="toggleChat()">
+💬
+</div>
+
+
+<div class="chatbox" id="chat">
+
+<div class="chat-header">
+🤖 Cloud Assistant
+</div>
+
+
+<div class="chat-body" id="messages">
+
+<div class="message bot">
+👋 Hello! I'm your Cloud AI Assistant. Ask me anything about AWS, cloud computing, or your projects.
+</div>
+
+</div>
+
+
+<div class="chat-input">
+
+<input 
+id="input"
+type="text"
+placeholder="Ask about AWS..."
+onkeypress="if(event.key==='Enter') sendMessage()">
+
+<button onclick="sendMessage()">
+Send
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+const API_URL = "https://woj89zy0nk.execute-api.us-east-1.amazonaws.com/chat";
+
+
+// Open / Close Chat
+
+function toggleChat(){
+
+let chat=document.getElementById("chat");
+
+chat.style.display =
+chat.style.display === "flex"
+? "none"
+: "flex";
+
+}
+
+
+// Send Message to AWS Lambda
+
+async function sendMessage(){
+
+let input=document.getElementById("input");
+
+let userMessage=input.value.trim();
+
+
+if(userMessage==="")
+return;
+
+
+let messages=document.getElementById("messages");
+
+
+// User message
+
+messages.innerHTML += `
+<div class="message user">
+${userMessage}
+</div>
+`;
+
+input.value="";
+
+messages.scrollTop=messages.scrollHeight;
+
+
+try{
+
+const response = await fetch(API_URL,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body: JSON.stringify({
+message:userMessage
+})
+
+});
+
+
+const data = await response.json();
+
+
+// Lambda Response
+
+messages.innerHTML += `
+<div class="message bot">
+${data.reply || "No response from AI"}
+</div>
+`;
+
+
+}catch(error){
+
+console.error(error);
+
+messages.innerHTML += `
+<div class="message bot">
+❌ Failed to connect to AWS AI service.
+</div>
+`;
+
+}
+
+messages.scrollTop=messages.scrollHeight;
+
+}
+
+</script>
+</body>
+</html>
